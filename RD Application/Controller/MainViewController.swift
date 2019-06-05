@@ -12,12 +12,18 @@ class MainViewController: UIViewController {
     
     //MARK: - IB Outlets
     @IBOutlet var categoryButtonsCollection: [UIButton]!
-    @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var noveltyImageView: UIImageView!
     
     //MARK: - Stored Properties
     var newsCollectionView = NewsCollectionView()
-    let newsImages = [UIImage]()
+    let newsPageControl = NewsPageControl()
+//    var newsPageControl: UIPageControl = {
+//        let pageControl = UIPageControl()
+//        pageControl.numberOfPages = NewsImagesNames.allCases.count
+//        pageControl.hidesForSinglePage = true
+//        pageControl.translatesAutoresizingMaskIntoConstraints = false
+//        return pageControl
+//    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,11 +35,18 @@ class MainViewController: UIViewController {
         
         newsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         newsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-
+        
         //guard let navigationBarHeight = navigationController?.navigationBar.frame.size.height else { return }
         newsCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 64).isActive = true
         
         newsCollectionView.heightAnchor.constraint(equalToConstant: 250).isActive = true
+        
+        newsCollectionView.getNewsPageControl(newsPageControl: newsPageControl)
+        /// page control
+        view.addSubview(newsPageControl)
+        
+        newsPageControl.bottomAnchor.constraint(equalTo: newsCollectionView.bottomAnchor).isActive = true
+        newsPageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
 }
 
@@ -50,8 +63,8 @@ extension MainViewController {
         addNavigationTitleImage()
         setupButtonsAppearance()
         setupNoveltyImageView()
-        
-        newsCollectionView.setNewsImages(newsImages: newsImages)
+    
+        newsCollectionView.setNewsImages(newsImages: NewsImagesNames.fetchImages())
     }
     
     /// add navigation title image view
@@ -67,7 +80,7 @@ extension MainViewController {
         
         navigationItem.titleView = containerImageView
     }
-
+    
     /// add buttons' background
     func setupButtonsAppearance() {
         for button in categoryButtonsCollection {
@@ -83,9 +96,4 @@ extension MainViewController {
         noveltyImageView.contentMode = .scaleAspectFill
         noveltyImageView.image = #imageLiteral(resourceName: "backpack")
     }
-    
-//    func fetchNewsImages() {
-//        let backpackImage = UIImage(named: "backpack")
-//        let
-//    }
 }

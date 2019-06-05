@@ -15,6 +15,7 @@
 		5BBFFCF322A6C72800D04E57 /* NewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBFFCF222A6C72800D04E57 /* NewsCollectionViewCell.swift */; };
 		5BBFFCF522A6D6E200D04E57 /* NewsImagesNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBFFCF422A6D6E200D04E57 /* NewsImagesNames.swift */; };
 		5BE5785622A6C4A600779FC8 /* NewsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE5785522A6C4A600779FC8 /* NewsCollectionView.swift */; };
+		5BE8527B22A7E75700295082 /* NewsPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE8527A22A7E75700295082 /* NewsPageControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		5BBFFCF222A6C72800D04E57 /* NewsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BBFFCF422A6D6E200D04E57 /* NewsImagesNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsImagesNames.swift; sourceTree = "<group>"; };
 		5BE5785522A6C4A600779FC8 /* NewsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCollectionView.swift; sourceTree = "<group>"; };
+		5BE8527A22A7E75700295082 /* NewsPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewsPageControl.swift; path = "RD Application/View/NewsPageControl.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			children = (
 				5BE5785522A6C4A600779FC8 /* NewsCollectionView.swift */,
 				5BBFFCF222A6C72800D04E57 /* NewsCollectionViewCell.swift */,
+				5BE8527A22A7E75700295082 /* NewsPageControl.swift */,
 				5B3F7BBA22A56EF90082195F /* Main.storyboard */,
 				5B3F7BBF22A56EFD0082195F /* LaunchScreen.storyboard */,
 			);
@@ -179,6 +182,7 @@
 				5BE5785622A6C4A600779FC8 /* NewsCollectionView.swift in Sources */,
 				5B3F7BB922A56EF90082195F /* MainViewController.swift in Sources */,
 				5BBFFCF522A6D6E200D04E57 /* NewsImagesNames.swift in Sources */,
+				5BE8527B22A7E75700295082 /* NewsPageControl.swift in Sources */,
 				5B3F7BB722A56EF90082195F /* AppDelegate.swift in Sources */,
 				5BBFFCF322A6C72800D04E57 /* NewsCollectionViewCell.swift in Sources */,
 			);

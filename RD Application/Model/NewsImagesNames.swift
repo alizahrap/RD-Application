@@ -6,12 +6,23 @@
 //  Copyright © 2019 Georgii Kashin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-enum NewsImagesNames: String {
+enum NewsImagesNames: String, CaseIterable {
     case backpack = "backpack"
     case sportBag = "sportBag"
     case hoodie = "hoodie"
-    
-    // TODO: method of creating images
+}
+
+extension NewsImagesNames {
+    static func fetchImages() -> [UIImage] {
+        var arrayOfImages = [UIImage]()
+        
+        for imageCase in NewsImagesNames.allCases {
+            let imageName = imageCase.rawValue
+            guard let image = UIImage(named: imageName) else { continue }
+            arrayOfImages.append(image)
+        }
+        return arrayOfImages
+    }
 }

@@ -29,10 +29,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="eiX-wY-41X">
-                                <rect key="frame" x="168" y="272" width="39" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </pageControl>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CMn-cs-Gdq">
                                 <rect key="frame" x="12" y="372" width="350" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -72,7 +68,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="noveltyImageView" destination="4eK-p4-PVc" id="0qX-2t-Xct"/>
-                        <outlet property="pageControl" destination="eiX-wY-41X" id="rfm-Px-h5G"/>
                         <outletCollection property="categoryButtonsCollection" destination="CMn-cs-Gdq" collectionClass="NSMutableArray" id="xPG-51-DAT"/>
                         <outletCollection property="categoryButtonsCollection" destination="2Ju-Ry-d08" collectionClass="NSMutableArray" id="TO4-X6-V4H"/>
                         <outletCollection property="categoryButtonsCollection" destination="fUD-NF-Zqp" collectionClass="NSMutableArray" id="UmZ-Rk-dJw"/>
