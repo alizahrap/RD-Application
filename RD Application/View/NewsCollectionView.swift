@@ -8,43 +8,85 @@
 
 import UIKit
 
-class NewsCollectionView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class NewsCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     
+    // MARK: - Stored Properties
     var newsImages = [UIImage]()
-    var newsPageControl = NewsPageControl()
-
+    var newsPageControl = UIPageControl()
+    
+    // MARK: - Initializers
     init() {
+        /// create layout
         let layout = UICollectionViewFlowLayout()
+        /// setup layout
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         
         super.init(frame: .zero, collectionViewLayout: layout)
-        
-        delegate = self
-        dataSource = self
-        
-        startTimer()
-        
-        isScrollEnabled = false
-        register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsCollectionViewCell.reuseIdentifier)
-        translatesAutoresizingMaskIntoConstraints = false
-        showsHorizontalScrollIndicator = false
+        /// configure collection view
+        configureCollectionView()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+// MARK: - CollectionView Methods
+extension NewsCollectionView {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: UIScreen.main.bounds.width, height: frame.height)
+    }
+}
+
+// MARK: - ScrollView Methods
+extension NewsCollectionView {
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        newsPageControl.currentPage = Int(contentOffset.x / frame.width) % newsImages.count
+    }
+    /// scroll to next cell
+    @objc func scrollToNextCell() {
+        scrollRectToVisible(CGRect(x: contentOffset.x + frame.width, y: contentOffset.y, width: frame.width, height: frame.height), animated: true)
+    }
+}
+
+// MARK: - Setup CollectionView
+extension NewsCollectionView {
+    func configureCollectionView() {
+        register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsCollectionViewCell.reuseIdentifier)
+        delegate = self
+        dataSource = self
+        /// start timer for scrolling images
+        startTimerForScrolling()
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        showsHorizontalScrollIndicator = false
+        isScrollEnabled = false
+    }
     
-    func getNewsPageControl(newsPageControl: NewsPageControl) {
+    /// Set news page control for collection view
+    ///
+    /// - Parameter newsPageControl: instance of NewsPageControl class
+    func setNewsPageControl(newsPageControl: UIPageControl) {
         self.newsPageControl = newsPageControl
     }
     
+    /// Set news images for collection view
+    ///
+    /// - Parameter newsImages: array of news images
     func setNewsImages(newsImages: [UIImage]) {
         self.newsImages = newsImages
     }
-    
+    /// start timer for scrolling images
+    func startTimerForScrolling() {
+        _ = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(scrollToNextCell), userInfo: nil, repeats: true)
+    }
+}
+
+// MARK: - CollectionViewDataSource Methods
+extension NewsCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return Int(Int16.max)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -53,48 +95,4 @@ class NewsCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
         
         return cell
     }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: frame.height)
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        // TODO: - implement a change of current page
-        //let pageWidth = scrollView.frame.width
-        newsPageControl.currentPage = (indexPathsForVisibleItems.first?.row)!
-        
-        //scrollToItem(at: <#T##IndexPath#>, at: <#T##UICollectionView.ScrollPosition#>, animated: <#T##Bool#>)
-        
-        //newsPageControl.currentPage = Int((scrollView.contentOffset.x + pageWidth / 2) / pageWidth)
-    }
-
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        
-    }
-    
-    @objc func scrollToNextCell() {
-        let cellSize = CGSize(width: frame.width, height: frame.height)
-
-        //let contentOffset = self.contentOffset
-
-        scrollRectToVisible(CGRect(x: contentOffset.x + cellSize.width, y: contentOffset.y, width: cellSize.width, height: cellSize.height), animated: true)
-        
-        //let contentOffset = self.contentOffset + cellSize.width
-        
-        newsPageControl.currentPage = Int(contentOffset.x / cellSize.width) % newsImages.count
-        print(contentOffset.x, newsPageControl.currentPage)
-    }
-    
-    func startTimer() {
-         _ = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(scrollToNextCell), userInfo: nil, repeats: true)
-    
-    }
-    
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        // TODO: - implement a change of current page
-//        //print(#line, #function, indexPath.row)
-//        //scrollToItem(at: indexPath, at: .left, animated: true)
-//       // newsPageControl.currentPage = indexPath.row % newsImages.count
-//
-//    }
 }

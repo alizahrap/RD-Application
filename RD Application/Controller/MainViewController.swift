@@ -10,43 +10,18 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    //MARK: - IB Outlets
+    // MARK: - IB Outlets
     @IBOutlet var categoryButtonsCollection: [UIButton]!
-    @IBOutlet weak var noveltyImageView: UIImageView!
     
-    //MARK: - Stored Properties
-    var newsCollectionView = NewsCollectionView()
-    let newsPageControl = NewsPageControl()
-//    var newsPageControl: UIPageControl = {
-//        let pageControl = UIPageControl()
-//        pageControl.numberOfPages = NewsImagesNames.allCases.count
-//        pageControl.hidesForSinglePage = true
-//        pageControl.translatesAutoresizingMaskIntoConstraints = false
-//        return pageControl
-//    }()
+    // MARK: - Stored Properties
+    let newsCollectionView = NewsCollectionView()
+    let newsPageControl = UIPageControl()
     
+    // MARK: - UIViewController Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         /// setup user interface
         setupUI()
-        
-        view.addSubview(newsCollectionView)
-        
-        newsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        newsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        
-        //guard let navigationBarHeight = navigationController?.navigationBar.frame.size.height else { return }
-        newsCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 64).isActive = true
-        
-        newsCollectionView.heightAnchor.constraint(equalToConstant: 250).isActive = true
-        
-        newsCollectionView.getNewsPageControl(newsPageControl: newsPageControl)
-        /// page control
-        view.addSubview(newsPageControl)
-        
-        newsPageControl.bottomAnchor.constraint(equalTo: newsCollectionView.bottomAnchor).isActive = true
-        newsPageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
 }
 
@@ -61,28 +36,40 @@ extension MainViewController {
     /// setup user interface
     func setupUI() {
         addNavigationTitleImage()
-        setupButtonsAppearance()
-        setupNoveltyImageView()
-    
-        newsCollectionView.setNewsImages(newsImages: NewsImagesNames.fetchImages())
+        addCollectionView()
+        addPageControl()
+        configureButtonsAppearance()
+        configureNavigationBackButton()
+        
+        /// pass data to NewsCollectionView class
+        newsCollectionView.setNewsPageControl(newsPageControl: newsPageControl)
+        newsCollectionView.setNewsImages(newsImages: NewsImages.fetchImages())
     }
     
     /// add navigation title image view
     func addNavigationTitleImage() {
+        /// create container for image view
         let containerImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 250, height: 27))
-        
+
         let titleImage = UIImage(named: "namedLogo")
         let titleImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 250, height: 27))
         
+        /// configure image view
         titleImageView.contentMode = .scaleAspectFit
         titleImageView.image = titleImage
-        containerImageView.addSubview(titleImageView)
         
+        /// add title view with container image view
+        containerImageView.addSubview(titleImageView)
         navigationItem.titleView = containerImageView
     }
     
-    /// add buttons' background
-    func setupButtonsAppearance() {
+    /// configure navigation back button
+    func configureNavigationBackButton() {
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    }
+    
+    /// add buttons background
+    func configureButtonsAppearance() {
         for button in categoryButtonsCollection {
             button.layer.cornerRadius = 10
             button.imageView?.contentMode  = .scaleAspectFit
@@ -91,9 +78,28 @@ extension MainViewController {
         }
     }
     
-    /// setup novelty image view
-    func setupNoveltyImageView() {
-        noveltyImageView.contentMode = .scaleAspectFill
-        noveltyImageView.image = #imageLiteral(resourceName: "backpack")
+    /// add page control
+    func addPageControl() {
+        /// configure page control
+        newsPageControl.numberOfPages = NewsImages.allCases.count
+        newsPageControl.hidesForSinglePage = true
+        newsPageControl.isEnabled = false
+        newsPageControl.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(newsPageControl)
+        /// constrain page control
+        newsPageControl.bottomAnchor.constraint(equalTo: newsCollectionView.bottomAnchor).isActive = true
+        newsPageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+    
+    /// add collection view
+    func addCollectionView() {
+        view.addSubview(newsCollectionView)
+        
+        /// constrain collection view
+        newsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        newsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        newsCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        newsCollectionView.heightAnchor.constraint(equalToConstant: view.frame.size.height * 0.4).isActive = true
     }
 }
