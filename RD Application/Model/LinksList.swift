@@ -8,8 +8,19 @@
 
 import Foundation
 
-enum LinksList: String, CaseIterable {
+enum UrlList: String, CaseIterable {
     case site = "https://roadtothedream.com"
     case instagram = "http://instagram.com/roadtothedream"
     case vk = "https://vk.com/roadtothedream"
+}
+
+enum PhoneNumbersList: String, CaseIterable {
+    case phoneNumber = "tel://78005002969"
+}
+
+// MARK: - Collection
+extension Collection {
+    subscript(safe index: Index) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
 }

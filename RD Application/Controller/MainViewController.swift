@@ -23,6 +23,10 @@ class MainViewController: UIViewController {
         /// setup user interface
         setupUI()
     }
+    
+    override func viewDidLayoutSubviews() {
+        
+    }
 }
 
 // MARK: - IB Actions

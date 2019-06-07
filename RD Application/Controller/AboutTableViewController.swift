@@ -9,27 +9,43 @@
 import UIKit
 
 class AboutTableViewController: UITableViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 0))
     }
-    
+}
+
+// MARK: - UITableViewController Methods
+extension AboutTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        switch indexPath.section {
         case 0:
-            if let link = URL(string: LinksList.site.rawValue) {
-                UIApplication.shared.open(link)
-            }
+            /// create url name
+            let urlName = UrlList.allCases[indexPath.row].rawValue
+            /// open url
+            openUrl(withName: urlName)
         case 1:
-            if let link = URL(string: LinksList.instagram.rawValue) {
-                UIApplication.shared.open(link)
-            }
-        case 2:
-            if let link = URL(string: LinksList.vk.rawValue) {
-                UIApplication.shared.open(link)
-            }
+            /// create phone number
+            guard let phoneNumber = PhoneNumbersList.allCases[safe: indexPath.row]?.rawValue else { return }
+            /// call number with phone number
+            openUrl(withName: phoneNumber)
         default:
             break
+        }
+    }
+}
+
+// MARK: - URL
+extension AboutTableViewController {
+    /// Open url with url name
+    ///
+    /// - Parameter urlName: url name or phone number
+    func openUrl(withName urlName: String) {
+        if let url = URL(string: urlName) {
+            UIApplication.shared.open(url)
         }
     }
 }

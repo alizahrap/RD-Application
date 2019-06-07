@@ -24,7 +24,7 @@
 		5B3F7BB622A56EF90082195F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B3F7BB822A56EF90082195F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5B3F7BBB22A56EF90082195F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		5B3F7BBD22A56EFD0082195F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5B3F7BBD22A56EFD0082195F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../Supporting Files/Assets.xcassets"; sourceTree = "<group>"; };
 		5B3F7BC022A56EFD0082195F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5B3F7BC222A56EFD0082195F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BA0CEA922A96EEC0089E250 /* AboutTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AboutTableViewController.swift; path = "RD Application/Controller/AboutTableViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -66,6 +66,7 @@
 			children = (
 				5BE5785222A6BEF100779FC8 /* Controller */,
 				5BBFFCF622A6D6E900D04E57 /* Model */,
+				5BE2DFD622AABDB300A73ED5 /* Resources */,
 				5B57BCD622A9405F006F04D8 /* Storyboards */,
 				5BE5785322A6BF0A00779FC8 /* Supporting Files */,
 				5BE5785422A6BF3300779FC8 /* View */,
@@ -91,6 +92,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		5BE2DFD622AABDB300A73ED5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5B3F7BBD22A56EFD0082195F /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		5BE5785222A6BEF100779FC8 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -104,7 +113,6 @@
 			isa = PBXGroup;
 			children = (
 				5B3F7BB622A56EF90082195F /* AppDelegate.swift */,
-				5B3F7BBD22A56EFD0082195F /* Assets.xcassets */,
 				5B3F7BC222A56EFD0082195F /* Info.plist */,
 			);
 			path = "Supporting Files";
