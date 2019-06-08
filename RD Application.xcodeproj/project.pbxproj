@@ -16,6 +16,11 @@
 		5BA0CEAC22A989160089E250 /* LinksList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA0CEAB22A989160089E250 /* LinksList.swift */; };
 		5BBFFCF322A6C72800D04E57 /* NewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBFFCF222A6C72800D04E57 /* NewsCollectionViewCell.swift */; };
 		5BBFFCF522A6D6E200D04E57 /* NewsImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBFFCF422A6D6E200D04E57 /* NewsImages.swift */; };
+		5BE165A022ABCAC900B91480 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE1659F22ABCAC900B91480 /* Constants.swift */; };
+		5BE165A522ABF30B00B91480 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE165A422ABF30B00B91480 /* CategoryTableViewController.swift */; };
+		5BE165A722ABF4DB00B91480 /* Subcategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE165A622ABF4DB00B91480 /* Subcategories.swift */; };
+		5BE165A922AC236600B91480 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE165A822AC236600B91480 /* CategoryTableViewCell.swift */; };
+		5BE165AC22AC2DE300B91480 /* CellManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE165AB22AC2DE300B91480 /* CellManager.swift */; };
 		5BE5785622A6C4A600779FC8 /* NewsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE5785522A6C4A600779FC8 /* NewsCollectionView.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +36,11 @@
 		5BA0CEAB22A989160089E250 /* LinksList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinksList.swift; sourceTree = "<group>"; };
 		5BBFFCF222A6C72800D04E57 /* NewsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BBFFCF422A6D6E200D04E57 /* NewsImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsImages.swift; sourceTree = "<group>"; };
+		5BE1659F22ABCAC900B91480 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		5BE165A422ABF30B00B91480 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
+		5BE165A622ABF4DB00B91480 /* Subcategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subcategories.swift; sourceTree = "<group>"; };
+		5BE165A822AC236600B91480 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
+		5BE165AB22AC2DE300B91480 /* CellManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellManager.swift; sourceTree = "<group>"; };
 		5BE5785522A6C4A600779FC8 /* NewsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCollectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -50,6 +60,7 @@
 			children = (
 				5B3F7BB522A56EF90082195F /* RD Application */,
 				5B3F7BB422A56EF90082195F /* Products */,
+				5BE165A122ABE25B00B91480 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -65,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				5BE5785222A6BEF100779FC8 /* Controller */,
+				5BE165AA22AC2DCC00B91480 /* Managers */,
 				5BBFFCF622A6D6E900D04E57 /* Model */,
 				5BE2DFD622AABDB300A73ED5 /* Resources */,
 				5B57BCD622A9405F006F04D8 /* Storyboards */,
@@ -86,10 +98,27 @@
 		5BBFFCF622A6D6E900D04E57 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				5BBFFCF422A6D6E200D04E57 /* NewsImages.swift */,
+				5BE165A622ABF4DB00B91480 /* Subcategories.swift */,
+				5BE1659F22ABCAC900B91480 /* Constants.swift */,
 				5BA0CEAB22A989160089E250 /* LinksList.swift */,
+				5BBFFCF422A6D6E200D04E57 /* NewsImages.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		5BE165A122ABE25B00B91480 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5BE165AA22AC2DCC00B91480 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				5BE165AB22AC2DE300B91480 /* CellManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		5BE2DFD622AABDB300A73ED5 /* Resources */ = {
@@ -104,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				5BA0CEA922A96EEC0089E250 /* AboutTableViewController.swift */,
+				5BE165A422ABF30B00B91480 /* CategoryTableViewController.swift */,
 				5B3F7BB822A56EF90082195F /* MainViewController.swift */,
 			);
 			path = Controller;
@@ -121,6 +151,7 @@
 		5BE5785422A6BF3300779FC8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5BE165A822AC236600B91480 /* CategoryTableViewCell.swift */,
 				5BE5785522A6C4A600779FC8 /* NewsCollectionView.swift */,
 				5BBFFCF222A6C72800D04E57 /* NewsCollectionViewCell.swift */,
 			);
@@ -159,6 +190,11 @@
 				TargetAttributes = {
 					5B3F7BB222A56EF90082195F = {
 						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -199,10 +235,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BE5785622A6C4A600779FC8 /* NewsCollectionView.swift in Sources */,
+				5BE165A022ABCAC900B91480 /* Constants.swift in Sources */,
 				5BA0CEAC22A989160089E250 /* LinksList.swift in Sources */,
 				5B3F7BB922A56EF90082195F /* MainViewController.swift in Sources */,
 				5BBFFCF522A6D6E200D04E57 /* NewsImages.swift in Sources */,
+				5BE165A522ABF30B00B91480 /* CategoryTableViewController.swift in Sources */,
+				5BE165A922AC236600B91480 /* CategoryTableViewCell.swift in Sources */,
+				5BE165AC22AC2DE300B91480 /* CellManager.swift in Sources */,
 				5B3F7BB722A56EF90082195F /* AppDelegate.swift in Sources */,
+				5BE165A722ABF4DB00B91480 /* Subcategories.swift in Sources */,
 				5BBFFCF322A6C72800D04E57 /* NewsCollectionViewCell.swift in Sources */,
 				5BA0CEAA22A96EEC0089E250 /* AboutTableViewController.swift in Sources */,
 			);

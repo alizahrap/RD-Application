@@ -23,15 +23,12 @@ class MainViewController: UIViewController {
         /// setup user interface
         setupUI()
     }
-    
-    override func viewDidLayoutSubviews() {
-        
-    }
 }
 
 // MARK: - IB Actions
 extension MainViewController {
     @IBAction func categoryButtonPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: "toCategory", sender: sender)
     }
 }
 
@@ -39,7 +36,7 @@ extension MainViewController {
 extension MainViewController {
     /// setup user interface
     func setupUI() {
-        addNavigationTitleImage()
+        addNavigationTitleImageView()
         addCollectionView()
         addPageControl()
         configureButtonsAppearance()
@@ -51,13 +48,13 @@ extension MainViewController {
     }
     
     /// add navigation title image view
-    func addNavigationTitleImage() {
+    func addNavigationTitleImageView() {
         /// create container for image view
-        let containerImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 250, height: 27))
+        let containerImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: TitleImageViewConstants.width, height: TitleImageViewConstants.height))
 
-        let titleImage = UIImage(named: "namedLogo")
-        let titleImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 250, height: 27))
-        
+        let titleImage = UIImage(named: TitleImageViewConstants.imageName)
+        let titleImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: TitleImageViewConstants.width, height: TitleImageViewConstants.height))
+    
         /// configure image view
         titleImageView.contentMode = .scaleAspectFit
         titleImageView.image = titleImage
@@ -105,5 +102,17 @@ extension MainViewController {
         newsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         newsCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         newsCollectionView.heightAnchor.constraint(equalToConstant: view.frame.size.height * 0.4).isActive = true
+    }
+}
+
+// MARK: - Navigation
+extension MainViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "toCategory" else { return }
+        guard let destination = segue.destination as? CategoryTableViewController else { return }
+        guard let button = sender as? UIButton else { return }
+        /// pass data to CategoryTableViewController
+        destination.categoryList = Categories.categoryListArray[button.tag]
+        destination.navigationTitle = button.titleLabel?.text
     }
 }
