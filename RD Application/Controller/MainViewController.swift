@@ -28,7 +28,7 @@ class MainViewController: UIViewController {
 // MARK: - IB Actions
 extension MainViewController {
     @IBAction func categoryButtonPressed(_ sender: UIButton) {
-        performSegue(withIdentifier: "toCategory", sender: sender)
+        performSegue(withIdentifier: "toCategories", sender: sender)
     }
 }
 
@@ -44,7 +44,7 @@ extension MainViewController {
         
         /// pass data to NewsCollectionView class
         newsCollectionView.setNewsPageControl(newsPageControl: newsPageControl)
-        newsCollectionView.setNewsImages(newsImages: NewsImages.fetchImages())
+        newsCollectionView.setNewsImages(newsImages: NewsImage.fetchImages())
     }
     
     /// add navigation title image view
@@ -82,7 +82,7 @@ extension MainViewController {
     /// add page control
     func addPageControl() {
         /// configure page control
-        newsPageControl.numberOfPages = NewsImages.allCases.count
+        newsPageControl.numberOfPages = NewsImage.allCases.count
         newsPageControl.hidesForSinglePage = true
         newsPageControl.isEnabled = false
         newsPageControl.translatesAutoresizingMaskIntoConstraints = false
@@ -108,11 +108,10 @@ extension MainViewController {
 // MARK: - Navigation
 extension MainViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == "toCategory" else { return }
+        guard segue.identifier == "toCategories" else { return }
         guard let destination = segue.destination as? CategoryTableViewController else { return }
         guard let button = sender as? UIButton else { return }
         /// pass data to CategoryTableViewController
-        destination.categoryList = Categories.categoryListArray[button.tag]
-        destination.navigationTitle = button.titleLabel?.text
+        destination.pressedButton = button
     }
 }

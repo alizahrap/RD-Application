@@ -8,12 +8,31 @@
 
 import UIKit
 
-// TODO: - implement configuring cell
 class CellManager {
-    func configure(_ cell: CategoryTableViewCell, with indexPath: IndexPath) {
-        cell.titleLabel.text = categoryList[indexPath.row]
-        cell.backgroundImageView.image = UIImage(named: "sweatshirt")
+    /// Configure cell
+    ///
+    /// - Parameters:
+    ///   - cell: configurable cell
+    ///   - title: cell title
+    ///   - image: cell image
+    func configure(_ cell: CategoryTableViewCell, titled title: String, with image: UIImage) {
+        cell.titleLabel.text = title
+        cell.backgroundImageView.image = image
         cell.backgroundImageView.contentMode = .scaleAspectFill
         cell.backgroundImageView.layer.cornerRadius = 5
+    }
+    
+    /// Configure cell
+    ///
+    /// - Parameters:
+    ///   - cell: configurable cell
+    ///   - product: product for cell
+    func configure(_ cell: ProductCollectionViewCell, with product: Product) {
+        cell.productName.text = product.name
+        cell.productPrice.text = product.price
+        guard let imageData = product.imageData else { return }
+        cell.productImage.image = UIImage(data: imageData)
+        cell.productImage.contentMode = .scaleAspectFill
+        cell.layer.cornerRadius = 5
     }
 }

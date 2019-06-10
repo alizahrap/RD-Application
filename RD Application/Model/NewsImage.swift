@@ -1,5 +1,5 @@
 //
-//  NewsImages.swift
+//  NewsImage.swift
 //  RD Application
 //
 //  Created by Георгий Кашин on 04/06/2019.
@@ -8,20 +8,20 @@
 
 import UIKit
 
-enum NewsImages: String, CaseIterable {
-    case backpack = "backpack"
-    case sportBag = "sportBag"
-    case hoodie = "hoodie"
+enum NewsImage: String, CaseIterable {
+    case backpack = "newsBackpack"
+    case sportBag = "newsSportBag"
+    case hoodie = "newsHoodie"
 }
 
-extension NewsImages {
-    /// Create images with NewsImages enum names
+extension NewsImage {
+    /// Create images with NewsImage enum names
     ///
     /// - Returns: array of news images
     static func fetchImages() -> [UIImage] {
         var arrayOfImages = [UIImage]()
         
-        for imageCase in NewsImages.allCases {
+        for imageCase in NewsImage.allCases {
             let imageName = imageCase.rawValue
             guard let image = UIImage(named: imageName) else { continue }
             arrayOfImages.append(image)
