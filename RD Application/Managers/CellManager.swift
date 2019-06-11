@@ -29,7 +29,7 @@ class CellManager {
     ///   - product: product for cell
     func configure(_ cell: ProductCollectionViewCell, with product: Product) {
         cell.productName.text = product.name
-        cell.productPrice.text = product.price
+        cell.productPrice.text = String(product.price)
         guard let imageData = product.imageData else { return }
         cell.productImage.image = UIImage(data: imageData)
         cell.productImage.contentMode = .scaleAspectFill
