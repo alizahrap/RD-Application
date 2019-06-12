@@ -27,12 +27,14 @@ class CellManager {
     /// - Parameters:
     ///   - cell: configurable cell
     ///   - product: product for cell
-    func configure(_ cell: ProductCollectionViewCell, with product: Product) {
+    func configure(_ cell: ProductCollectionViewCell, with product: Product, at indexPath: IndexPath) {
         cell.productName.text = product.name
         cell.productPrice.text = String(product.price)
         guard let imageData = product.imageData else { return }
         cell.productImage.image = UIImage(data: imageData)
         cell.productImage.contentMode = .scaleAspectFill
         cell.layer.cornerRadius = 5
+        
+        cell.toCartButton.tag = indexPath.row
     }
 }

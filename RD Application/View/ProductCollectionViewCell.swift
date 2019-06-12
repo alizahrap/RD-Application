@@ -14,8 +14,5 @@ class ProductCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var productName: UILabel!
     @IBOutlet weak var productPrice: UILabel!
-    
-    // MARK: - IB Actions
-    @IBAction func butButtonPressed() {
-    }
+    @IBOutlet weak var toCartButton: UIButton!
 }

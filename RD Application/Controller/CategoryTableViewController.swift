@@ -16,7 +16,16 @@ class CategoryTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupUI()
+    }
+}
+
+// MARK: - UI
+extension CategoryTableViewController {
+    /// setup user interface
+    func setupUI() {
+        /// hide navigation back button title
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         title = pressedButton.titleLabel?.text
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 0))
     }

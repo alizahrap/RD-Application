@@ -14,5 +14,6 @@ class Product: Object {
     dynamic var price = Int()
     dynamic var imageData: Data?
     dynamic var category = String()
+    dynamic var sizeRange = List<String>()
     dynamic var date = Date()
 }

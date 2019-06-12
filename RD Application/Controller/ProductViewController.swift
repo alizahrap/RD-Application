@@ -15,6 +15,7 @@ class ProductViewController: UIViewController {
     let cellManager = CellManager()
     /// current category
     var category: String!
+    /// alerts
     var sortingAlert = UIAlertController()
     var selectSizeAlert = UIAlertController()
     
@@ -28,51 +29,38 @@ extension ProductViewController {
     @IBAction func sortingButtonPressed() {
         present(sortingAlert, animated: true)
     }
-    @IBAction func toCartButtonPressed() {
-        let alert = UIAlertController(title: "Выберите размер", message: "\n\n\n", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel)
-        let doneAction = UIAlertAction(title: "Готово", style: .default)
-        alert.addAction(cancelAction)
-        alert.addAction(doneAction)
-        alert.isModalInPopover = true
-        
-        // TODO: - implement select size alert
-        
-        let firstButton = UIButton(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-        firstButton.setTitle("42", for: .normal)
-        firstButton.center = alert.view.center
-        let secondButton = UIButton(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-        secondButton.setTitle("44", for: .normal)
-        secondButton.layer.borderWidth = 1
-        secondButton.layer.cornerRadius = 5
-        
-        let stackView = UIStackView(frame: CGRect(x: 100, y: 100, width: 30, height: 30))
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.addArrangedSubview(firstButton)
-        alert.view.addSubview(firstButton)
-        
-        present(alert, animated: true)
-    }
     
+    @IBAction func toCartButtonPressed(_ sender: UIButton) {
+        /// setup alert with selected product size range
+        let sizeRange = Array(productList[sender.tag].sizeRange)
+        setupSelectSizeAlert(with: sizeRange)
+        /// present alert
+        present(selectSizeAlert, animated: true)
+    }
 }
 
 // MARK: - UIViewController Methods
 extension ProductViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        productCollection.dataSource = self
-        /// load products from Realm to product list
-        StorageManager.loadData(to: &productList, with: category)
-        /// setup sorting alert with picker view
-        sortingAlert = setupSortingAlert()
+        /// setup user interface
+        setupUI()
     }
 }
 
 // MARK: - UI
 extension ProductViewController {
+    /// setup user interface
+    func setupUI() {
+        productCollection.dataSource = self
+        /// load products from Realm to product list
+        StorageManager.loadData(to: &productList, with: category)
+        
+        /// setup alerts
+        sortingAlert = setupSortingAlert()
+        selectSizeAlert = createSelectSizeAlert()
+    }
+    
     /// Setup sorting alert with picker view
     ///
     /// - Returns: alert with picker view
@@ -93,9 +81,69 @@ extension ProductViewController {
         alert.addAction(doneAction)
         alert.view.addSubview(sortingPicker)
         /// add height constraint for alert
-        alert.view.addConstraint(NSLayoutConstraint(item: alert.view as Any, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: sortingPicker.frame.size.height + 55))
+        alert.view.heightAnchor.constraint(equalToConstant: sortingPicker.frame.size.height + 55).isActive = true
         
         return alert
+    }
+    
+    /// Create alert for size selection
+    ///
+    /// - Returns: select size alert
+    func createSelectSizeAlert() -> UIAlertController {
+        let alert = UIAlertController(title: "Выберите размер", message: "\n\n", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel)
+        let doneAction = UIAlertAction(title: "Готово", style: .default)
+        alert.addAction(cancelAction)
+        alert.addAction(doneAction)
+        
+        return alert
+    }
+    
+    /// Setup alert for size selection with product sizes
+    ///
+    /// - Parameter sizeRange: size range of selected product
+    func setupSelectSizeAlert(with sizeRange: [String]) {
+        /// setup stack view for size buttons
+        let sizeStackView = UIStackView()
+        configure(sizeStackView)
+        /// remove stack view from alert if already exists
+        let oldStackView = selectSizeAlert.view.viewWithTag(sizeStackView.tag)
+        oldStackView?.removeFromSuperview()
+        
+        /// create and configure button for every size and add it to size stack view
+        for size in sizeRange {
+            let button = UIButton()
+            configure(button, with: size)
+            sizeStackView.addArrangedSubview(button)
+        }
+        /// add size stack view to alert and constrain it
+        selectSizeAlert.view.addSubview(sizeStackView)
+        sizeStackView.centerXAnchor.constraint(equalTo: selectSizeAlert.view.centerXAnchor).isActive = true
+        sizeStackView.centerYAnchor.constraint(equalTo: selectSizeAlert.view.centerYAnchor, constant: -5).isActive = true
+    }
+    
+    /// Configure stack view
+    ///
+    /// - Parameter stackView: size stack view
+    func configure(_ stackView: UIStackView) {
+        stackView.tag = 1
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.spacing = 5
+    }
+    
+    /// Configure button
+    ///
+    /// - Parameters:
+    ///   - button: size button
+    ///   - size: size 
+    func configure(_ button: UIButton, with size: String) {
+        button.setTitle(size, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 5
+        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 3)
     }
 }
 
@@ -109,7 +157,7 @@ extension ProductViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCell", for: indexPath) as! ProductCollectionViewCell
         let product = productList[indexPath.row]
         /// configure cell with product
-        cellManager.configure(cell, with: product)
+        cellManager.configure(cell, with: product, at: indexPath)
         return cell
     }
 }
