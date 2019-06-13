@@ -1,5 +1,5 @@
 //
-//  carouselCollectionView.swift
+//  CarouselCollectionView.swift
 //  RD Application
 //
 //  Created by Георгий Кашин on 04/06/2019.
@@ -8,14 +8,15 @@
 
 import UIKit
 
-class carouselCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
+class CarouselCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     
     // MARK: - Stored Properties
-    var newsImages = [UIImage]()
-    var newsPageControl = UIPageControl()
+    var images = [UIImage]()
+    var pageControl = UIPageControl()
+    var isTimerUsed = false
     
     // MARK: - Initializers
-    init() {
+    init(useTimer: Bool) {
         /// create layout
         let layout = UICollectionViewFlowLayout()
         /// setup layout
@@ -23,8 +24,11 @@ class carouselCollectionView: UICollectionView, UICollectionViewDelegateFlowLayo
         layout.minimumLineSpacing = 0
         
         super.init(frame: .zero, collectionViewLayout: layout)
+        isTimerUsed = useTimer
         /// configure collection view
         configureCollectionView()
+        /// run timer for scrolling images
+        if isTimerUsed { startTimerForScrolling() }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,17 +37,25 @@ class carouselCollectionView: UICollectionView, UICollectionViewDelegateFlowLayo
 }
 
 // MARK: - CollectionView Methods
-extension carouselCollectionView {
+extension CarouselCollectionView {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: frame.width, height: frame.height)
     }
 }
 
 // MARK: - ScrollView Methods
-extension carouselCollectionView {
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        newsPageControl.currentPage = Int(contentOffset.x / frame.width) % newsImages.count
+extension CarouselCollectionView {
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+
+        scrollRectToVisible(CGRect(x: frame.width * round((CGFloat(contentOffset.x) / CGFloat(frame.width))), y: contentOffset.y, width: frame.width, height: frame.height), animated: true)
+        pageControl.currentPage = Int(contentOffset.x / frame.width)
     }
+    
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        pageControl.currentPage = Int(contentOffset.x / frame.width) % images.count
+    }
+    
     /// scroll to next cell
     @objc func scrollToNextCell() {
         scrollRectToVisible(CGRect(x: contentOffset.x + frame.width, y: contentOffset.y, width: frame.width, height: frame.height), animated: true)
@@ -51,47 +63,43 @@ extension carouselCollectionView {
 }
 
 // MARK: - Setup CollectionView
-extension carouselCollectionView {
+extension CarouselCollectionView {
+    /// configure collection view
     func configureCollectionView() {
-        register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsCollectionViewCell.reuseIdentifier)
+        register(CarouselCollectionViewCell.self, forCellWithReuseIdentifier: CarouselCollectionViewCell.reuseIdentifier)
         delegate = self
         dataSource = self
-        /// start timer for scrolling images
-        startTimerForScrolling()
-        
         translatesAutoresizingMaskIntoConstraints = false
         showsHorizontalScrollIndicator = false
+        backgroundColor = .white
         isScrollEnabled = false
     }
     
-    /// Set news page control for collection view
+    /// Set images and page control for collection view
     ///
-    /// - Parameter newsPageControl: instance of NewsPageControl class
-    func setNewsPageControl(newsPageControl: UIPageControl) {
-        self.newsPageControl = newsPageControl
+    /// - Parameters:
+    ///   - images: array of images
+    ///   - pageControl: instance of ImagePageControl class
+    func setProperties(images: [UIImage], pageControl: UIPageControl) {
+        self.pageControl = pageControl
+        self.images = images
     }
     
-    /// Set news images for collection view
-    ///
-    /// - Parameter newsImages: array of news images
-    func setNewsImages(newsImages: [UIImage]) {
-        self.newsImages = newsImages
-    }
-    /// start timer for scrolling images
+    /// run timer for scrolling images
     func startTimerForScrolling() {
         _ = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(scrollToNextCell), userInfo: nil, repeats: true)
     }
 }
 
 // MARK: - CollectionViewDataSource Methods
-extension carouselCollectionView: UICollectionViewDataSource {
+extension CarouselCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Int(Int16.max)
+        return isTimerUsed ? Int(Int16.max) : images.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = dequeueReusableCell(withReuseIdentifier: NewsCollectionViewCell.reuseIdentifier, for: indexPath) as! NewsCollectionViewCell
-        cell.newsImageView.image = newsImages[indexPath.row % newsImages.count]
+        let cell = dequeueReusableCell(withReuseIdentifier: CarouselCollectionViewCell.reuseIdentifier, for: indexPath) as! CarouselCollectionViewCell
+        cell.imageView.image = images[indexPath.row % images.count]
         
         return cell
     }

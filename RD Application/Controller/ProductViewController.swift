@@ -147,6 +147,17 @@ extension ProductViewController {
     }
 }
 
+// MARK: - Navigation
+extension ProductViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "toDetail" else { return }
+        guard let destination = segue.destination as? ProductDetailViewController else { return }
+        guard let indexPath = productCollection.indexPathsForSelectedItems?.first else { return }
+        /// pass data to ProductDetailViewController
+        destination.product = productList[indexPath.row]
+    }
+}
+
 // MARK: - UICollectionView Data Source
 extension ProductViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

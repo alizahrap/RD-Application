@@ -14,14 +14,16 @@ class MainViewController: UIViewController {
     @IBOutlet var categoryButtonsCollection: [UIButton]!
     
     // MARK: - Stored Properties
-    let newsCollectionView = NewsCollectionView()
-    let newsPageControl = UIPageControl()
+    let newsCollectionView = CarouselCollectionView(useTimer: true)
+    let newsPageControl = ImagePageControl(numberOfPages: NewsImage.allCases.count)
     
     // MARK: - UIViewController Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         /// setup user interface
         setupUI()
+        /// pass data to NewsCollectionView class
+        newsCollectionView.setProperties(images: NewsImage.fetchImages(), pageControl: newsPageControl)
     }
 }
 
@@ -41,10 +43,6 @@ extension MainViewController {
         addPageControl()
         configureButtonsAppearance()
         configureNavigationBackButton()
-        
-        /// pass data to NewsCollectionView class
-        newsCollectionView.setNewsPageControl(newsPageControl: newsPageControl)
-        newsCollectionView.setNewsImages(newsImages: NewsImage.fetchImages())
     }
     
     /// add navigation title image view
@@ -81,12 +79,6 @@ extension MainViewController {
     
     /// add page control
     func addPageControl() {
-        /// configure page control
-        newsPageControl.numberOfPages = NewsImage.allCases.count
-        newsPageControl.hidesForSinglePage = true
-        newsPageControl.isEnabled = false
-        newsPageControl.translatesAutoresizingMaskIntoConstraints = false
-        
         view.addSubview(newsPageControl)
         /// constrain page control
         newsPageControl.bottomAnchor.constraint(equalTo: newsCollectionView.bottomAnchor).isActive = true
