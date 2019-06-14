@@ -23,6 +23,8 @@
 		5BE165A722ABF4DB00B91480 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE165A622ABF4DB00B91480 /* Category.swift */; };
 		5BE165A922AC236600B91480 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE165A822AC236600B91480 /* CategoryTableViewCell.swift */; };
 		5BE165AC22AC2DE300B91480 /* CellManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE165AB22AC2DE300B91480 /* CellManager.swift */; };
+		5BE45FDF22B3B249005EF97A /* SizeRangeButtonStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE45FDE22B3B249005EF97A /* SizeRangeButtonStackView.swift */; };
+		5BE45FE322B3F88A005EF97A /* SizeSelectionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE45FE222B3F88A005EF97A /* SizeSelectionAlert.swift */; };
 		5BE5785622A6C4A600779FC8 /* CarouselCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE5785522A6C4A600779FC8 /* CarouselCollectionView.swift */; };
 		5BE8B03922AE563E00709B8C /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE8B03822AE563E00709B8C /* ProductViewController.swift */; };
 		5BE8B03B22AE598D00709B8C /* ProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE8B03A22AE598D00709B8C /* ProductCollectionViewCell.swift */; };
@@ -52,6 +54,8 @@
 		5BE165A622ABF4DB00B91480 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		5BE165A822AC236600B91480 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		5BE165AB22AC2DE300B91480 /* CellManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellManager.swift; sourceTree = "<group>"; };
+		5BE45FDE22B3B249005EF97A /* SizeRangeButtonStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeRangeButtonStackView.swift; sourceTree = "<group>"; };
+		5BE45FE222B3F88A005EF97A /* SizeSelectionAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeSelectionAlert.swift; sourceTree = "<group>"; };
 		5BE5785522A6C4A600779FC8 /* CarouselCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCollectionView.swift; sourceTree = "<group>"; };
 		5BE8B03822AE563E00709B8C /* ProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
 		5BE8B03A22AE598D00709B8C /* ProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -177,11 +181,13 @@
 		5BE5785422A6BF3300779FC8 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				5BE165A822AC236600B91480 /* CategoryTableViewCell.swift */,
-				5BED08EE22B26EAA00741426 /* ImagePageControl.swift */,
 				5BE5785522A6C4A600779FC8 /* CarouselCollectionView.swift */,
 				5BBFFCF222A6C72800D04E57 /* CarouselCollectionViewCell.swift */,
+				5BE165A822AC236600B91480 /* CategoryTableViewCell.swift */,
+				5BED08EE22B26EAA00741426 /* ImagePageControl.swift */,
 				5BE8B03A22AE598D00709B8C /* ProductCollectionViewCell.swift */,
+				5BE45FDE22B3B249005EF97A /* SizeRangeButtonStackView.swift */,
+				5BE45FE222B3F88A005EF97A /* SizeSelectionAlert.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -323,6 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B26E4F422AFD0470090EDC0 /* StorageManager.swift in Sources */,
+				5BE45FE322B3F88A005EF97A /* SizeSelectionAlert.swift in Sources */,
 				5BE8B03922AE563E00709B8C /* ProductViewController.swift in Sources */,
 				5BE5785622A6C4A600779FC8 /* CarouselCollectionView.swift in Sources */,
 				5BE8B03D22AE5D7A00709B8C /* Product.swift in Sources */,
@@ -336,6 +343,7 @@
 				5BE165A522ABF30B00B91480 /* CategoryTableViewController.swift in Sources */,
 				5BED08ED22B249BC00741426 /* ProductDetailViewController.swift in Sources */,
 				5BE165A922AC236600B91480 /* CategoryTableViewCell.swift in Sources */,
+				5BE45FDF22B3B249005EF97A /* SizeRangeButtonStackView.swift in Sources */,
 				5BE165AC22AC2DE300B91480 /* CellManager.swift in Sources */,
 				5B3F7BB722A56EF90082195F /* AppDelegate.swift in Sources */,
 				5BE165A722ABF4DB00B91480 /* Category.swift in Sources */,

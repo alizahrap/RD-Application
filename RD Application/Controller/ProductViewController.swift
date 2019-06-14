@@ -17,7 +17,7 @@ class ProductViewController: UIViewController {
     var category: String!
     /// alerts
     var sortingAlert = UIAlertController()
-    var selectSizeAlert = UIAlertController()
+    var sizeSelectionAlert = SizeSelectionAlert()
     
     // MARK: - IB Outlets
     @IBOutlet weak var productCollection: UICollectionView!
@@ -31,11 +31,11 @@ extension ProductViewController {
     }
     
     @IBAction func toCartButtonPressed(_ sender: UIButton) {
-        /// setup alert with selected product size range
+        /// configure alert with selected product size range
         let sizeRange = Array(productList[sender.tag].sizeRange)
-        setupSelectSizeAlert(with: sizeRange)
+        sizeSelectionAlert.configure(withSizeRange: sizeRange)
         /// present alert
-        present(selectSizeAlert, animated: true)
+        present(sizeSelectionAlert.alert, animated: true)
     }
 }
 
@@ -58,7 +58,6 @@ extension ProductViewController {
         
         /// setup alerts
         sortingAlert = setupSortingAlert()
-        selectSizeAlert = createSelectSizeAlert()
     }
     
     /// Setup sorting alert with picker view
@@ -84,66 +83,6 @@ extension ProductViewController {
         alert.view.heightAnchor.constraint(equalToConstant: sortingPicker.frame.size.height + 55).isActive = true
         
         return alert
-    }
-    
-    /// Create alert for size selection
-    ///
-    /// - Returns: select size alert
-    func createSelectSizeAlert() -> UIAlertController {
-        let alert = UIAlertController(title: "Выберите размер", message: "\n\n", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel)
-        let doneAction = UIAlertAction(title: "Готово", style: .default)
-        alert.addAction(cancelAction)
-        alert.addAction(doneAction)
-        
-        return alert
-    }
-    
-    /// Setup alert for size selection with product sizes
-    ///
-    /// - Parameter sizeRange: size range of selected product
-    func setupSelectSizeAlert(with sizeRange: [String]) {
-        /// setup stack view for size buttons
-        let sizeStackView = UIStackView()
-        configure(sizeStackView)
-        /// remove stack view from alert if already exists
-        let oldStackView = selectSizeAlert.view.viewWithTag(sizeStackView.tag)
-        oldStackView?.removeFromSuperview()
-        
-        /// create and configure button for every size and add it to size stack view
-        for size in sizeRange {
-            let button = UIButton()
-            configure(button, with: size)
-            sizeStackView.addArrangedSubview(button)
-        }
-        /// add size stack view to alert and constrain it
-        selectSizeAlert.view.addSubview(sizeStackView)
-        sizeStackView.centerXAnchor.constraint(equalTo: selectSizeAlert.view.centerXAnchor).isActive = true
-        sizeStackView.centerYAnchor.constraint(equalTo: selectSizeAlert.view.centerYAnchor, constant: -5).isActive = true
-    }
-    
-    /// Configure stack view
-    ///
-    /// - Parameter stackView: size stack view
-    func configure(_ stackView: UIStackView) {
-        stackView.tag = 1
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.spacing = 5
-    }
-    
-    /// Configure button
-    ///
-    /// - Parameters:
-    ///   - button: size button
-    ///   - size: size 
-    func configure(_ button: UIButton, with size: String) {
-        button.setTitle(size, for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.layer.borderWidth = 1
-        button.layer.cornerRadius = 5
-        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 3)
     }
 }
 

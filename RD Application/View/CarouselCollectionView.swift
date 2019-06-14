@@ -45,14 +45,13 @@ extension CarouselCollectionView {
 
 // MARK: - ScrollView Methods
 extension CarouselCollectionView {
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-
-        scrollRectToVisible(CGRect(x: frame.width * round((CGFloat(contentOffset.x) / CGFloat(frame.width))), y: contentOffset.y, width: frame.width, height: frame.height), animated: true)
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        /// change page for manual scrolling
         pageControl.currentPage = Int(contentOffset.x / frame.width)
     }
     
-    
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        /// change page for automatic scrolling
         pageControl.currentPage = Int(contentOffset.x / frame.width) % images.count
     }
     
@@ -73,6 +72,7 @@ extension CarouselCollectionView {
         showsHorizontalScrollIndicator = false
         backgroundColor = .white
         isScrollEnabled = false
+        isPagingEnabled = true
     }
     
     /// Set images and page control for collection view
