@@ -24,6 +24,8 @@ class ProductDetailViewController: UIViewController {
     @IBOutlet weak var compositionLabel: UILabel!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var toCartButton: UIButton!
+    @IBOutlet weak var sizeTableLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
 }
 
 // MARK: - IB Actions
@@ -61,58 +63,59 @@ extension ProductDetailViewController {
 extension ProductDetailViewController {
     /// setup user interface
     func setupUI() {
-        /// setup label price
-        priceLabel.text = String(product.price) + " ₽"
-        descriptionLabel.text = product.specification
-        compositionLabel.text = product.composition
-        toCartButton.layer.cornerRadius = 8
-        title = product.name
-        sizeSelectionAlert.configure(withSizeRange: Array(product.sizeRange))
-        
-        addCollectionView()
-        addPageControl()
-        addSizeRangeButtonStackView()
-        
+        /// add views to content view
+        addViews()
         /// constrain views
         constrainViews()
+        /// customize interface elements
+        customizeInterfaceElements()
+
+        /// configure size selection alert with size range
+        sizeSelectionAlert.configure(withSizeRange: Array(product.sizeRange))
     }
     
-    /// add collection view
-    func addCollectionView() {
-        /// configure collection view
-        productImageCollectionView.isScrollEnabled = true
-        productImageCollectionView.layer.cornerRadius = 5
-        
+    /// add views to content view
+    func addViews() {
+        /// add collection view
         contentView.addSubview(productImageCollectionView)
-        /// constrain collection view
-        productImageCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50).isActive = true
-        productImageCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50).isActive = true
-        productImageCollectionView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-        productImageCollectionView.heightAnchor.constraint(equalToConstant: view.frame.size.height * 0.5).isActive = true
-    }
-    
-    /// add page control
-    func addPageControl() {
+        /// add page control
         contentView.addSubview(imagePageControl)
-        /// constrain page control
-        imagePageControl.bottomAnchor.constraint(equalTo: productImageCollectionView.bottomAnchor).isActive = true
-        imagePageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-    }
-    
-    /// add size range button stack view to content view
-    func addSizeRangeButtonStackView() {
+        /// add size range button stack view
         contentView.addSubview(sizeRangeButtonStackView)
-        NSLayoutConstraint.activate([
-            sizeRangeButtonStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            sizeRangeButtonStackView.topAnchor.constraint(equalTo: productImageCollectionView.bottomAnchor, constant: 30),
-        ])
     }
     
     /// constrain views
     func constrainViews() {
         NSLayoutConstraint.activate([
+            /// constrain collection view
+            productImageCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
+            productImageCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
+            productImageCollectionView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
+            productImageCollectionView.heightAnchor.constraint(equalToConstant: view.frame.size.height * 0.5),
+            /// constrain page control
+            imagePageControl.bottomAnchor.constraint(equalTo: productImageCollectionView.bottomAnchor),
+            imagePageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            /// constrain size range button stack view
+            sizeRangeButtonStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            sizeRangeButtonStackView.topAnchor.constraint(equalTo: productImageCollectionView.bottomAnchor, constant: 30),
+            /// constrain segmented control
+            segmentedControl.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 10),
+            /// constrain labels
             priceLabel.topAnchor.constraint(equalTo: sizeRangeButtonStackView.bottomAnchor, constant: 20),
+            sizeTableLabel.bottomAnchor.constraint(equalTo: sizeRangeButtonStackView.topAnchor, constant: -5)
         ])
+    }
+    
+    /// customize interface elements
+    func customizeInterfaceElements() {
+        title = product.name
+        priceLabel.text = String(product.price.number) + product.price.symbol
+        descriptionLabel.text = product.specification
+        compositionLabel.text = product.composition
+        toCartButton.layer.cornerRadius = 8
+        /// configure collection view
+        productImageCollectionView.isScrollEnabled = true
+        productImageCollectionView.layer.cornerRadius = 5
     }
 }
 

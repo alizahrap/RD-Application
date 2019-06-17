@@ -43,6 +43,8 @@ extension ProductViewController {
 extension ProductViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        /// load products from Realm to product list
+        StorageManager.loadData(to: &productList, with: category)
         /// setup user interface
         setupUI()
     }
@@ -53,11 +55,10 @@ extension ProductViewController {
     /// setup user interface
     func setupUI() {
         productCollection.dataSource = self
-        /// load products from Realm to product list
-        StorageManager.loadData(to: &productList, with: category)
-        
-        /// setup alerts
+        /// setup alert
         sortingAlert = setupSortingAlert()
+        /// hide navigation back button title
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     /// Setup sorting alert with picker view
@@ -135,9 +136,9 @@ extension ProductViewController: UIPickerViewDelegate {
         case 0:
             productList = productList.sorted { $0.date > $1.date }
         case 1:
-            productList = productList.sorted { $0.price < $1.price }
+            productList = productList.sorted { $0.price.number < $1.price.number }
         case 2:
-            productList = productList.sorted { $0.price > $1.price }
+            productList = productList.sorted { $0.price.number > $1.price.number }
         default:
             break
         }

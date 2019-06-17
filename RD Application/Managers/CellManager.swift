@@ -29,7 +29,7 @@ class CellManager {
     ///   - product: product for cell
     func configure(_ cell: ProductCollectionViewCell, with product: Product, at indexPath: IndexPath) {
         cell.productName.text = product.name
-        cell.productPrice.text = String(product.price)
+        cell.productPrice.text = String(product.price.number) + product.price.symbol
         cell.toCartButton.tag = indexPath.row
         cell.layer.cornerRadius = 5
         guard let imageData = product.imageData.first else { return }

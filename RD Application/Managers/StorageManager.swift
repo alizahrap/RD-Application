@@ -16,7 +16,12 @@ class StorageManager {
     /// - Parameters:
     ///   - productList: list of the products
     ///   - category: category of the products
-    static func loadData(to productList: inout [Product], with category: String) {
+    static func loadData(to productList: inout [Product], with category: String? = nil) {
+        guard let category = category else {
+            /// create product list with all products
+            productList = Array(realm.objects(Product.self))
+            return
+        }
         /// create filtered product list with current category
         productList = realm.objects(Product.self).filter({ (product) -> Bool in
             return product.category == category

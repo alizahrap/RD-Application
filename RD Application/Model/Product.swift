@@ -12,10 +12,16 @@ import RealmSwift
 class Product: Object {
     dynamic var name = String()
     dynamic var specification = String()
-    dynamic var price = Int()
+    dynamic var price: Price!
     dynamic var imageData = List<Data>()
     dynamic var category = String()
     dynamic var composition = String()
     dynamic var sizeRange = List<String>()
     dynamic var date = Date()
+}
+
+@objcMembers
+class Price: Object {
+    dynamic var number = Int()
+    dynamic var symbol = String()
 }

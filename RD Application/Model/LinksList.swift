@@ -17,10 +17,3 @@ enum UrlList: String, CaseIterable {
 enum PhoneNumbersList: String, CaseIterable {
     case phoneNumber = "tel://78005002969"
 }
-
-// MARK: - Collection
-extension Collection {
-    subscript(safe index: Index) -> Element? {
-        return indices.contains(index) ? self[index] : nil
-    }
-}
